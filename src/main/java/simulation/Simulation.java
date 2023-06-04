@@ -18,6 +18,13 @@ public class Simulation {
     private List<IUnit> units;
     private int maxIteration;
 
+    /**
+     * Konstruktor obiektu symulacji
+     * @param mapCreator obiekt klasy SimulationMapCreator - służący do utworzenia mapy symulacji
+     * @param unitCreator obiekt klasy UnitCreator - służący do utworzenia obiektów jednostek
+     * @param seed ziarno generatora pseudolosowego
+     * @param maxIteration maksymalna liczba iteracji symulacji
+     */
     public Simulation(ISimulationMapCreator mapCreator, IUnitCreator unitCreator, long seed, int maxIteration) {
         this.map = mapCreator.createMap();
         this.random = new Random(seed);
@@ -33,6 +40,9 @@ public class Simulation {
         }
     }
 
+    /**
+     * Metoda niszcząca wszystkie "martwe" jednostki na koniec iteracji, wykorzystująca metodę destroyUnit() z klasy SimulationMap
+     */
     private void destroyUnits() {
         Iterator<IUnit> iterator = units.iterator();
         while (iterator.hasNext()) {
@@ -41,6 +51,10 @@ public class Simulation {
         }
     }
 
+    /**
+     * Metoda zwracająca informację, czy jakakolwiek jednostka z drużyny A "jest żywa"
+     * @return true -> co najmniej jedna jednostka z drużyny A "jest żywa"; false -> wszystkie jednostki z drużyny A "są martwe"
+     */
     public boolean isAnyoneAliveA() {
         int i = 0;
         for (IUnit unit : units) if (unit.getIsA()) i++;
@@ -48,6 +62,10 @@ public class Simulation {
         else return false;
     }
 
+    /**
+     * Metoda zwracająca informację, czy jakakolwiek jednostka z drużyny B "jest żywa"
+     * @return true -> co najmniej jedna jednostka z drużyny B "jest żywa"; false -> wszystkie jednostki z drużyny B "są martwe"
+     */
     public boolean isAnyoneAliveB() {
         int i = 0;
         for (IUnit unit : units) if (!unit.getIsA()) i++;
@@ -55,6 +73,9 @@ public class Simulation {
         else return false;
     }
 
+    /**
+     * Metoda wyświetlająca mapę symulacji na ekranie
+     */
     public void printMap() {
         IUnit[][] map = this.map.getMap();
 
@@ -71,6 +92,13 @@ public class Simulation {
         }
     }
 
+    /**
+     * Metoda przeprowadzająca przebieg symulacji:
+     * 1. Wyświetlana jest mapa symulacji po ustawieniu wszystkich jednostek
+     * 2. Dla każdej jednostki wykonywana jest metoda doAction()
+     * 3. Usuwane są "martwe" jednostki
+     * 4. Jeśli wszystkie jednostki z jednej drużyny "są martwe" - symulacja kończy się
+     */
     public void runSimulation() {
         this.printMap();
         System.out.println();
@@ -78,13 +106,17 @@ public class Simulation {
             for (IUnit unit : units) {
                 unit.doAction();
             }
-            this.printMap();
-            System.out.println();
+
+            this.destroyUnits();
 
             if (!this.isAnyoneAliveA() || !this.isAnyoneAliveB()) {
-                return;
+                this.printMap();
+                System.out.println();
+               return;
             }
-            this.destroyUnits();
+
+            this.printMap();
+            System.out.println();
         }
     }
 }

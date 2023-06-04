@@ -19,6 +19,15 @@ public class UnitCreator implements IUnitCreator {
     private int numberArtilleryA;
     private int numberArtilleryB;
 
+    /**
+     * Konstruktor obiektu tworzącego obiekty jednostek
+     * @param numberTankA ilość obiektów jednostki Tank w drużynie A
+     * @param numberTankB ilość obiektów jednostki Tank w drużynie B
+     * @param numberInfantryA ilość obiektów jednostki Infantry w drużynie A
+     * @param numberInfantryB ilość obiektów jednostki Infantry w drużynie B
+     * @param numberArtilleryA ilość obiektów jednostki Artillery w drużynie A
+     * @param numberArtilleryB ilość obiektów jednostki Artillery w drużynie B
+     */
     public UnitCreator(int numberTankA, int numberTankB, int numberInfantryA, int numberInfantryB, int numberArtilleryA, int numberArtilleryB) {
         this.numberTankA = numberTankA;
         this.numberTankB = numberTankB;
@@ -28,6 +37,11 @@ public class UnitCreator implements IUnitCreator {
         this.numberArtilleryB = numberArtilleryB;
     }
 
+    /**
+     * Metoda tworząca obiekty jednostek, oraz dodająca je do listy jednostek
+     * @param map obiekt klasy SimulationMap przekazywany każdemu obiektowi jednostki
+     * @return units - lista utworzonych obiektów jednostek
+     */
     @Override
     public List<IUnit> createUnits(ISimulationMap map) {
         List<IUnit> units = new ArrayList<>();

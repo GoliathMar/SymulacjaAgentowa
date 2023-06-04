@@ -8,7 +8,6 @@ public interface ISimulationMap {
     IUnit getUnit(IPosition position);
     int getMapSizeX();
     int getMapSizeY();
-    int getSize();
     IUnit[][] getMap();
     boolean putUnit(IUnit unit, IPosition position);
     IPosition getUnitPosition(IUnit unit);

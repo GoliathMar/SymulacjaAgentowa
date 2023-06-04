@@ -9,6 +9,10 @@ import java.util.Random;
 
 public class Main {
 
+    /**
+     * Główna metoda przeprowadzająca działanie programu
+     * @param args argumenty przekazywane na początku działaniu programu
+     */
     public static void main(String[] args) {
 
         ISimulationMapCreator mapCreator = new SimulationMapCreator(10,5);
@@ -16,7 +20,7 @@ public class Main {
 
         Random random = new Random();
 
-        Simulation simulation = new Simulation(mapCreator, unitCreator, random.nextLong(), 10);
+        Simulation simulation = new Simulation(mapCreator, unitCreator, random.nextLong(), 100);
         simulation.runSimulation();
         System.out.println("KONIEC SYMULACJI");
 
